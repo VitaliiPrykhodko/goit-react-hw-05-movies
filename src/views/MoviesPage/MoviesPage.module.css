@@ -1,0 +1,16 @@
+.input {
+    margin-right: 10px;
+}
+
+.btn {
+    cursor: pointer;
+}
+
+.link {
+    text-decoration: none;
+    color: blue;
+}
+
+.link:hover {
+    color: red;
+}

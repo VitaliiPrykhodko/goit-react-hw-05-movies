@@ -1,0 +1,18 @@
+.detailBox{
+    display: flex;
+}
+
+.thumb {
+    margin-right: 30px;
+    display: flex;
+    flex-direction: column;
+}
+
+.link {
+    text-decoration: none;
+    color: #000;
+}
+
+.link:hover {
+    color: blue;
+}

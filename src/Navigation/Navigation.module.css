@@ -1,0 +1,11 @@
+.activeLink {
+    color: blue;
+}
+
+.link {
+    text-decoration: none;
+}
+
+.link:first-of-type{
+    margin-right: 10px;
+}
