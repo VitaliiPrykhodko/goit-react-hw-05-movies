@@ -4,6 +4,7 @@ import {
   NavLink,
   useRouteMatch,
   Route,
+  useLocation
 } from "react-router-dom";
 import React, { useState, useEffect, lazy, Suspense } from "react";
 import fetchMovies from "../../fetchMovies/fetchMovies";
@@ -14,9 +15,10 @@ const Cast = lazy(() => import("../Cast/Cast.js"));
 const Reviews = lazy(() => import("../Reviews/Reviews.js"));
 
 export default function MovieDetailsPage() {
+  const location = useLocation()
   const [movie, setMovie] = useState(null);
   const { movieId } = useParams();
-  const { push } = useHistory();
+  const history = useHistory();
   const { url, path } = useRouteMatch();
 
   useEffect(() => {
@@ -24,6 +26,10 @@ export default function MovieDetailsPage() {
       .then((data) => setMovie(data))
       .catch((error) => alert("Not found"));
   }, [movieId]);
+
+   function handleGoBack() {
+    history.push(location?.state?.from ?? '/');
+  }
 
   return (
     <>
@@ -33,7 +39,7 @@ export default function MovieDetailsPage() {
             return (
               <div className={styles.detailBox} key={id}>
                 <div className={styles.thumb}>
-                  <button type="button" onClick={() => push("/")}>
+                  <button type="button" onClick={handleGoBack}>
                     Go back
                   </button>
                   <img
@@ -65,10 +71,10 @@ export default function MovieDetailsPage() {
             <h2>Additional information</h2>
             <ul>
               <li>
-                <NavLink className={styles.link}  to={`${url}/cast`}>Cast</NavLink>
+                <NavLink className={styles.link}  to={{ pathname: `${url}/cast`, state: location.state }}>Cast</NavLink>
               </li>
               <li>
-                <NavLink className={styles.link}  to={`${url}/reviews`}>Reviews</NavLink>
+                <NavLink className={styles.link}  to={{ pathname: `${url}/reviews`, state: location.state }}>Reviews</NavLink>
               </li>
             </ul>
           </div>
